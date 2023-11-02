@@ -1,36 +1,31 @@
 def isArmstrong():
-    number = input("enter the number\n");
-    length = len(number);
-    sum = 0;
-    flag = False;
+    number = input("enter the number\n") 
+    length = len(number) 
+    sum = 0 
     for x in number:
-        sum += int(x)**length;
+        sum += int(x)**length 
         if(sum == int(number)):
-            flag = True;
+            print("number is armstrong\n") 
         else:
-            flag = False;
-    
-    print(sum);
-    if(flag):
-        print("number is armstrong\n");
-    else:
-        print("number is not armstrong");
+            print("number is not armstrong")     
+    print(sum) 
+       
 
 def isPrime(x):
-    flag = False;
+    flag = False 
     for elem in range(2,x):
         if(x%elem == 0):
-            flag = True;
-            break;
+            flag = True 
+            break 
     if(flag):
-        print('number is not prime');
+        print('number is not prime') 
     else:
         print("numberr is prime",x)
     
 def factorial(x):
-    ans = 1;
+    ans = 1 
     for elem in range(1,x+1):
-        ans *= elem;
+        ans *= elem 
     print(ans)
         
 def isPalindrom(x):
