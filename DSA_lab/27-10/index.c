@@ -36,6 +36,25 @@ int *insertElement(int arr[], int size, int position, int value)
     return newArray;
 }
 
+int userChoise()
+{
+    int choise = 0;
+    printf("1. Insertion\n2. Deletion\n3. Traversing");
+    printf("Enter the choise \n");
+    scanf("%d",&choise);
+
+    switch (choise)
+    {
+    case 1:
+        /* code */
+        return choise;
+        break;
+    
+    default:
+        break;
+    }
+}
+
 void main()
 {
     int arr[] = {1, 2, 3, 4, 5};
