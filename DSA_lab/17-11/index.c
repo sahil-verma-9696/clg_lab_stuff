@@ -1,236 +1,80 @@
 #include <stdio.h>
-
 #define MAX_SIZE 100
 
-void displayArray(int arr[], int size)
-{
-  printf("Current Array: ");
-  printf("[");
-  for (int i = 0; i < size; i++)
-  {
-    printf(" %d ", arr[i]);
-    if (i == size - 1)
-      break;
-    printf(",");
-  }
-  printf("]");
-  printf("\n");
+void display(int a[], int s) {
+    printf("Array: ");
+    for (int i = 0; i < s; i++) printf("%d ", a[i]);
+    printf("\n");
 }
 
-void insertBeginning(int arr[], int size)
-{
-  if (size < MAX_SIZE)
-  {
-    int num;
-    printf("Enter the number to insert at the beginning: ");
-    scanf("%d", &num);
-
-    for (int i = size; i > 0; i--)
-    {
-      arr[i] = arr[i - 1];
+int main() {
+    printf("crn : 22CSME0  \n name :        \n");
+    int arr[MAX_SIZE], s = 0, c;
+    printf("Enter size of array (max %d): ", MAX_SIZE);
+    scanf("%d", &s);
+    if (s > MAX_SIZE || s <= 0) { printf("Invalid size. Exiting.\n"); return 1; }
+    printf("Enter elements:\n");
+    for (int i = 0; i < s; i++) { printf("Element %d: ", i + 1); scanf("%d", &arr[i]); }
+    while (1) {
+        printf("\nArray Operations:\n1. Insert at Beginning\n2. Insert at End\n3. Insert at User Choice\n4. Delete from User Choice\n5. Search Element\n6. Traverse Array\n7. Exit\nEnter choice: ");
+        scanf("%d", &c);
+        switch (c) {
+            case 1: if (s < MAX_SIZE) { 
+                int n; 
+                printf("Number to insert at beginning: "); 
+                scanf("%d", &n); 
+                for (int i = s; i > 0; i--) arr[i] = arr[i - 1]; arr[0] = n; s++; 
+                printf("Inserted at beginning.\n"); 
+                } else printf("Array is full. Cannot insert.\n"); 
+                break;
+            case 2: if (s < MAX_SIZE) { 
+                int n; printf("Number to insert at end: "); 
+                scanf("%d", &n); arr[s] = n; s++; 
+                printf("Inserted at end.\n"); 
+                } else printf("Array is full. Cannot insert.\n"); 
+                break;
+            case 3: if (s < MAX_SIZE) { 
+                    int n, p; 
+                    printf("Number to insert: "); 
+                    scanf("%d", &n); printf("Position to insert (0 - %d): ", s);
+                    scanf("%d", &p); 
+                    if (p < 0 || p > s) printf("Invalid position!\n"); 
+                    else { 
+                    for (int i = s; i > p; i--) arr[i] = arr[i - 1]; arr[p] = n; s++; 
+                    printf("Inserted at position %d.\n", p); 
+                    } 
+                } else printf("Array is full. Cannot insert.\n"); 
+                break;
+            case 4: if (s > 0) { 
+                    int p; 
+                    printf("Position to delete (0 - %d): ", s - 1); 
+                    scanf("%d", &p); if (p < 0 || p >= s) printf("Invalid position!\n"); 
+                    else { 
+                    printf("Deleted element at position %d: %d\n", p, arr[p]); 
+                    for (int i = p; i < s - 1; i++) arr[i] = arr[i + 1]; s--; 
+                    } 
+                } else printf("Array is empty. Nothing to delete.\n"); 
+                break;
+            case 5: if (s > 0) { 
+                int target, found = 0; 
+                printf("Enter element to search: "); 
+                scanf("%d", &target); 
+                for (int i = 0; i < s; i++) { 
+                    if (arr[i] == target) { 
+                    printf("Element found at position %d.\n", i);
+                    found = 1; 
+                    break; 
+                    } 
+                } if (!found) printf("Element not found in the array.\n"); 
+                } else printf("Array is empty.\n"); 
+                break;
+            case 6: if (s > 0) display(arr, s); 
+            else printf("Array is empty.\n"); 
+            break;
+            case 7: printf("Exiting. Thank you!\n"); 
+            return 0;
+            default: printf("Invalid choice!\n");
+        }
     }
-    arr[0] = num;
-    size++;
-    printf("Number inserted at the beginning.\n");
-  }
-  else
-  {
-    printf("Array is full. Cannot insert.\n");
-  }
-}
-
-void insertEnd(int arr[], int size)
-{
-  if (size < MAX_SIZE)
-  {
-    int num;
-    printf("Enter the number to insert at the end: ");
-    scanf("%d", &num);
-    arr[size] = num;
-    size++;
-    printf("Number inserted at the end.\n");
-  }
-  else
-  {
-    printf("Array is full. Cannot insert.\n");
-  }
-}
-
-void insertUserChoice(int arr[], int size)
-{
-  if (size < MAX_SIZE)
-  {
-    int num, pos;
-    printf("Enter the number to insert: ");
-    scanf("%d", &num);
-    printf("Enter the position to insert (0 - %d): ", size);
-    scanf("%d", &pos);
-
-    if (pos < 0 || pos > size)
-    {
-      printf("Invalid position! Please enter a valid position.\n");
-    }
-    else
-    {
-      for (int i = size; i > pos; i--)
-      {
-        arr[i] = arr[i - 1];
-      }
-      arr[pos] = num;
-      size++;
-      printf("Number inserted at position %d.\n", pos);
-    }
-  }
-  else
-  {
-    printf("Array is full. Cannot insert.\n");
-  }
-}
-
-void deleteBeginning(int arr[], int size)
-{
-  if (size > 0)
-  {
-    printf("Deleted element from the beginning: %d\n", arr[0]);
-    for (int i = 0; i < size - 1; i++)
-    {
-      arr[i] = arr[i + 1];
-    }
-    size--;
-  }
-  else
-  {
-    printf("Array is empty. Nothing to delete.\n");
-  }
-}
-
-void deleteEnd(int arr[], int size)
-{
-  if (size > 0)
-  {
-    printf("Deleted element from the end: %d\n", arr[size - 1]);
-    size--;
-  }
-  else
-  {
-    printf("Array is empty. Nothing to delete.\n");
-  }
-}
-
-void deleteUserChoice(int arr[], int size)
-{
-  if (size > 0)
-  {
-    int pos;
-    printf("Enter the position to delete (0 - %d): ", size - 1);
-    scanf("%d", &pos);
-
-    if (pos < 0 || pos >= size)
-    {
-      printf("Invalid position! Please enter a valid position.\n");
-    }
-    else
-    {
-      printf("Deleted element at position %d: %d\n", pos, arr[pos]);
-      for (int i = pos; i < size - 1; i++)
-      {
-        arr[i] = arr[i + 1];
-      }
-      size--;
-    }
-  }
-  else
-  {
-    printf("Array is empty. Nothing to delete.\n");
-  }
-}
-
-void traversing(int arr[], int size)
-{
-  if (size > 0)
-  {
-    displayArray(arr, size);
-  }
-  else
-  {
-    printf("Array is empty.\n");
-  }
-}
-
-int choiceMaking(int arr[], int size)
-{
-  int choice;
-  while (1)
-  {
-    printf("\nArray Operations:\n");
-    printf("1. Insert at Beginning\n");
-    printf("2. Insert at End\n");
-    printf("3. Insert at User Choice\n");
-    printf("4. Delete from Beginning\n");
-    printf("5. Delete from End\n");
-    printf("6. Delete from User Choice\n");
-    printf("7. Traverse Array\n");
-    printf("8. Exit\n");
-    printf("Enter your choice: ");
-    scanf("%d", &choice);
-
-    switch (choice)
-    {
-    case 1:
-      insertBeginning(arr, size);
-      break;
-    case 2:
-      insertEnd(arr, size);
-      break;
-    case 3:
-      insertUserChoice(arr, size);
-      break;
-    case 4:
-      deleteBeginning(arr, size);
-      break;
-    case 5:
-      deleteEnd(arr, size);
-      break;
-    case 6:
-      deleteUserChoice(arr, size);
-      break;
-    case 7:
-      traversing(arr, size);
-      break;
-    case 8:
-      printf("Exiting the program. Thank you!\n");
-      return 0;
-    default:
-      printf("Invalid choice! Please enter a valid option.\n");
-    }
-  }
-}
-
-int userInputs()
-{
-  int arr[MAX_SIZE];
-  int size = 0;
-
-  printf("Enter the size of the array (max %d): ", MAX_SIZE);
-  scanf("%d", &size);
-
-  if (size > MAX_SIZE || size <= 0)
-  {
-    printf("Invalid size entered or size exceeds the limit. Exiting.\n");
-    return 1;
-  }
-
-  printf("Enter the elements of the array:\n");
-  for (int i = 0; i < size; i++)
-  {
-    printf("Enter element %d: ", i);
-    scanf("%d", &arr[i]);
-  }
-
-  choiceMaking(arr,size);
-}
-
-void main()
-{
-  userInputs();
+    return 0;
 }
